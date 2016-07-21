@@ -14,10 +14,26 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    gamewidget.cpp
+    gamewidget.cpp \
+    imagenascii.cpp \
+    conversor.cpp \
+    paleta.cpp \
+    mapa.cpp \
+    matbin.cpp \
+    patron.cpp \
+    vecbin.cpp \
+    celda.cpp
 
 HEADERS  += mainwindow.h \
-    gamewidget.h
+    gamewidget.h \
+    imagenascii.hpp \
+    conversor.hpp \
+    paleta.hpp \
+    mapa.hpp \
+    matbin.hpp \
+    patron.hpp \
+    vecbin.hpp \
+    celda.hpp
 
 FORMS    += mainwindow.ui
 
