@@ -10,7 +10,9 @@ namespace SHC
     {
     public:
         Mapa();
-        void setPatron (unsigned int x, unsigned int y, SHC::Patron& estructura);
+        Mapa(unsigned int numfil=10, unsigned int numcol=10);
+
+        void setPatron (unsigned int x, unsigned int y, SHC::Patron& patron);
     };
 }
 #endif // MAPA_HPP

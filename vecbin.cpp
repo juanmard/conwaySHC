@@ -16,4 +16,9 @@ namespace SHC
     {
         return componentes[i];
     }
+
+    unsigned int VecBin::size () const
+    {
+        return componentes.size();
+    }
 }

@@ -5,12 +5,14 @@
 #include <QColorDialog>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "mapaqt.hpp"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
     currentColor(QColor("#000")),
-    game(new GameWidget(this))
+    game(new SHC::MapaQt(this))
+//    game(new GameWidget(this))
 {
     ui->setupUi(this);
 

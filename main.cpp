@@ -4,6 +4,7 @@
 #include "matbin.hpp"
 #include "paleta.hpp"
 #include "patron.hpp"
+#include "conversor.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -11,6 +12,7 @@ int main(int argc, char *argv[])
     MainWindow w;
 
     // Pruebas simples de clases.
+/*
    SHC::MatBin prueba(6,6);
    prueba[1][1]=prueba[1][2]=SHC::Celda::full;
    prueba[2][1]=prueba[2][2]=SHC::Celda::full;
@@ -20,10 +22,13 @@ int main(int argc, char *argv[])
    patron[2][1]=patron[2][2]=SHC::Celda::full;
 
    SHC::Paleta paleta;
-
    paleta.add('c',&patron);
 
+   SHC::Conversor conversor;
+   conversor.convertir();
+
    // -----------------------------
+*/
    w.show();
    return a.exec();
 }

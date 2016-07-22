@@ -9,7 +9,9 @@ namespace SHC
         enum Estado {empty=0, full};
 
         Celda(Estado inicial=empty);
+
         Celda& operator=(Estado nuevo);
+        bool operator==(Estado comparar);
 
     private:
         Estado actual;

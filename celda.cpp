@@ -12,4 +12,10 @@ namespace SHC
         actual = nuevo;
         return *this;
     }
+
+    bool Celda::operator==(Estado comparar)
+    {
+        return (actual == comparar);
+    }
+
 }

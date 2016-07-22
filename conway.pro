@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     matbin.cpp \
     patron.cpp \
     vecbin.cpp \
-    celda.cpp
+    celda.cpp \
+    mapaqt.cpp
 
 HEADERS  += mainwindow.h \
     gamewidget.h \
@@ -33,7 +34,8 @@ HEADERS  += mainwindow.h \
     matbin.hpp \
     patron.hpp \
     vecbin.hpp \
-    celda.hpp
+    celda.hpp \
+    mapaqt.hpp
 
 FORMS    += mainwindow.ui
 

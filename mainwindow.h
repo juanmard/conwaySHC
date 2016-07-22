@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QColor>
 #include "gamewidget.h"
+#include "mapaqt.hpp"
 
 namespace Ui {
 class MainWindow;
@@ -26,7 +27,8 @@ public slots:
 private:
     Ui::MainWindow *ui;
     QColor currentColor;
-    GameWidget* game;
+    //GameWidget* game;
+    SHC::MapaQt* game;
 };
 
 #endif // MAINWINDOW_H

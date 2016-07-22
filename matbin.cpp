@@ -14,14 +14,16 @@ namespace SHC
 
     SHC::VecBin& MatBin::operator[] (unsigned int i)
     {
-//        if (i < vectores.size())
-//        {
-//            return vectores[i];
-//        }
-//        else
-//        {
-//            throw *new std::exception("Se ha intentado obtener un número de vector que no existe en la matriz.\nRevise sus índices y el tamaño de la matriz.");
-//        }
         return vectores[i];
+    }
+
+    unsigned int MatBin::numcol () const
+    {
+        return vectores.size();
+    }
+
+    unsigned int MatBin::numfil () const
+    {
+        return vectores[0].size();
     }
 }
