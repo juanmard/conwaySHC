@@ -16,12 +16,12 @@ namespace SHC
         int col = patron.numcol();
         int fil = patron.numfil();
 
-        for (int i=x; i < col; i++)
+        for (int i=0; i < col; i++)
         {
-            for (int j=y; j < fil; j++)
+            for (int j=0; j < fil; j++)
             {
-                //(this->operator[](j)).operator [](i) = patron[j][i];
-                //this[j][i] = patron[j][i];
+                // Comprobar que el patrón se dibuja en el mapa y no sale de él.
+                (*this)[j+y][i+x] = patron[j][i];
             }
         }
     }

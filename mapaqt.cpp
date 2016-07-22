@@ -4,19 +4,13 @@ namespace SHC
 {
     MapaQt::MapaQt(QWidget *parent) :
       QWidget(parent),
-      universeSize(10),
-      mapa(*new SHC::Mapa(10,10))
+      universeSize(100),
+      mapa(*new SHC::Mapa(universeSize,universeSize))
     {
-        //timer->setInterval(300);
-        //m_masterColor = "#000";
-        //universe = new bool[(universeSize + 2) * (universeSize + 2)];
-        //next = new bool[(universeSize + 2) * (universeSize + 2)];
-        //connect(timer, SIGNAL(timeout()), this, SLOT(newGeneration()));
-        //memset(universe, false, sizeof(bool)*(universeSize + 2) * (universeSize + 2));
-        //memset(next, false, sizeof(bool)*(universeSize + 2) * (universeSize + 2));
         mapa[0][0] = SHC::Celda::full;
-        mapa[9][9] = SHC::Celda::full;
+        mapa[universeSize-1][universeSize-1] = SHC::Celda::full;
         mapa[1][3] = mapa[1][5] = SHC::Celda::full;
+        mapa.setPatron(10,10,*new Patron());
     }
 
     void MapaQt::paintEvent (QPaintEvent *)
@@ -31,7 +25,8 @@ namespace SHC
         double cellHeight = (double)height()/universeSize;
         for(int k=1; k <= universeSize; k++) {
             for(int j=1; j <= universeSize; j++) {
-                if((mapa.operator[](k-1)).operator[](j-1) == SHC::Celda::full)
+                //if((mapa.operator[](k-1)).operator[](j-1) == SHC::Celda::full)
+                if(mapa[k-1][j-1] == SHC::Celda::full)
                 { // if there is any sense to paint it
                     qreal left = (qreal)(cellWidth*j-cellWidth); // margin from left
                     qreal top  = (qreal)(cellHeight*k-cellHeight); // margin from top
