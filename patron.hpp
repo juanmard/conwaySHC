@@ -9,6 +9,7 @@ namespace SHC
     {
     public:
         Patron();
+        Patron(const std::string& cadena, unsigned int numfil=6, unsigned int numcol=6);
     };
 }
 

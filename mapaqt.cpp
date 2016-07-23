@@ -1,16 +1,23 @@
 #include "mapaqt.hpp"
+#include "conversor.hpp"
 
 namespace SHC
 {
     MapaQt::MapaQt(QWidget *parent) :
       QWidget(parent),
-      universeSize(100),
-      mapa(*new SHC::Mapa(universeSize,universeSize))
+      universeSize(81*6),
+      mapa(*new SHC::Mapa(81*6,81*6))
     {
         mapa[0][0] = SHC::Celda::full;
-        mapa[universeSize-1][universeSize-1] = SHC::Celda::full;
         mapa[1][3] = mapa[1][5] = SHC::Celda::full;
-        mapa.setPatron(10,10,*new Patron());
+        mapa.setPatron(0,0,*new SHC::Patron());
+        mapa.setPatron(20,20,*new SHC::Patron("*-*-*-\n-*-*-*\n*-*-*-\n-*-*-*\n*-*-*-\n-*-*-*\n"));
+        //mapa[universeSize-1][universeSize-1] = SHC::Celda::full;
+
+        SHC::Conversor conversor;
+        conversor.setMapa(mapa);
+        conversor.convertir();
+
     }
 
     void MapaQt::paintEvent (QPaintEvent *)
@@ -21,12 +28,14 @@ namespace SHC
 
     void MapaQt::paintMap (QPainter &p)
     {
-        double cellWidth = (double)width()/universeSize;
-        double cellHeight = (double)height()/universeSize;
-        for(int k=1; k <= universeSize; k++) {
-            for(int j=1; j <= universeSize; j++) {
-                //if((mapa.operator[](k-1)).operator[](j-1) == SHC::Celda::full)
-                if(mapa[k-1][j-1] == SHC::Celda::full)
+        unsigned int anchomap, altomap;
+        anchomap = mapa.numcol();
+        altomap = mapa.numfil();
+        double cellWidth = (double)width()/anchomap;
+        double cellHeight = (double)height()/altomap;
+        for(int k=1; k <= anchomap; k++) {
+            for(int j=1; j <= altomap; j++) {
+                if(mapa[j-1][k-1] == SHC::Celda::full)
                 { // if there is any sense to paint it
                     qreal left = (qreal)(cellWidth*j-cellWidth); // margin from left
                     qreal top  = (qreal)(cellHeight*k-cellHeight); // margin from top

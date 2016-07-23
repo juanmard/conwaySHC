@@ -2,14 +2,24 @@
 #define IMAGENASCII_HPP
 
 #include <string>
+#include <fstream>
 
 namespace SHC
 {
     class ImagenASCII
     {
     public:
-        ImagenASCII();
+        ImagenASCII(const std::string &fichero);
+        ~ImagenASCII();
+
         std::string readLine();
+        std::string getCaracteres();
+
+    private:
+        std::ifstream inFile;
+        std::string caracteres;
     };
-};
+
+}
+
 #endif // IMAGENASCII_HPP
