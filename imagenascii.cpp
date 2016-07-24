@@ -35,7 +35,7 @@ namespace SHC
         {
             if (caracteres.str().find(ch) == std::string::npos)
             {
-             caracteres << ch;
+                caracteres << ch;
             }
         }
         return caracteres.str();

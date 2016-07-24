@@ -4,56 +4,63 @@ namespace SHC
 {
     Conversor::Conversor()
     {
+        // Se lee una imagen de prueba del disco.
+        setImagenASCII(*new SHC::ImagenASCII("prueba.txt"));
     }
 
     void Conversor::convertir()
     {
-        // 1 - Comprobar que tenemos todos los elementos necesarios.
+        // Se incia la paleta con patrones asociados a las letras del club.
         SHC::Paleta prueba;
         prueba.add(' ',new SHC::Patron("------\n------\n------\n------\n------\n------\n"));
-        prueba.add('S',new SHC::Patron("******\n******\n******\n******\n******\n******\n"));
-        prueba.add('C',new SHC::Patron("******\n******\n******\n******\n******\n******\n"));
-        prueba.add('I',new SHC::Patron("******\n******\n******\n******\n******\n******\n"));
-        prueba.add('E',new SHC::Patron("******\n******\n******\n******\n******\n******\n"));
-        prueba.add('N',new SHC::Patron("******\n******\n******\n******\n******\n******\n"));
-        prueba.add('H',new SHC::Patron("******\n******\n******\n******\n******\n******\n"));
-        prueba.add('A',new SHC::Patron("******\n******\n******\n******\n******\n******\n"));
-        prueba.add('K',new SHC::Patron("******\n******\n******\n******\n******\n******\n"));
-        prueba.add('U',new SHC::Patron("******\n******\n******\n******\n******\n******\n"));
-        prueba.add('L',new SHC::Patron("******\n******\n******\n******\n******\n******\n"));
-        prueba.add('B',new SHC::Patron("******\n******\n******\n******\n******\n******\n"));
-        prueba.add('s',new SHC::Patron("******\n******\n******\n******\n******\n******\n"));
-        prueba.add('c',new SHC::Patron("******\n******\n******\n******\n******\n******\n"));
-        prueba.add('i',new SHC::Patron("******\n******\n******\n******\n******\n******\n"));
-        prueba.add('e',new SHC::Patron("******\n******\n******\n******\n******\n******\n"));
-        prueba.add('n',new SHC::Patron("******\n******\n******\n******\n******\n******\n"));
-        prueba.add('h',new SHC::Patron("******\n******\n******\n******\n******\n******\n"));
-        prueba.add('a',new SHC::Patron("******\n******\n******\n******\n******\n******\n"));
-        prueba.add('k',new SHC::Patron("******\n******\n******\n******\n******\n******\n"));
-        prueba.add('u',new SHC::Patron("******\n******\n******\n******\n******\n******\n"));
-        prueba.add('l',new SHC::Patron("******\n******\n******\n******\n******\n******\n"));
-        prueba.add('b',new SHC::Patron("******\n******\n******\n******\n******\n******\n"));
-        this->setPaleta(prueba);
+        prueba.add('S',new SHC::Patron("------\n--**--\n-*--*-\n--**--\n------\n------\n"));
+        prueba.add('C',new SHC::Patron("------\n------\n--**--\n-*--*-\n--**--\n------\n"));
+        prueba.add('I',new SHC::Patron("------\n--*---\n-*-*--\n-*-*--\n--*---\n------\n"));
+        prueba.add('E',new SHC::Patron("------\n---*--\n--*-*-\n--*-*-\n---*--\n------\n"));
+        prueba.add('N',new SHC::Patron("------\n--**--\n-*--*-\n--*-*-\n---*--\n------\n"));
+        prueba.add('H',new SHC::Patron("------\n--*---\n-*-*--\n--**--\n------\n------\n"));
+        prueba.add('A',new SHC::Patron("------\n-**---\n-**---\n------\n------\n------\n"));
+        prueba.add('K',new SHC::Patron("------\n--**--\n--**--\n------\n------\n------\n"));
+        prueba.add('U',new SHC::Patron("------\n---**-\n---**-\n------\n------\n------\n"));
+        prueba.add('L',new SHC::Patron("------\n------\n---**-\n---**-\n------\n------\n"));
+        prueba.add('B',new SHC::Patron("------\n------\n--**--\n--**--\n------\n------\n"));
+        prueba.add('s',new SHC::Patron("------\n------\n-**---\n-**---\n------\n------\n"));
+        prueba.add('c',new SHC::Patron("------\n------\n------\n-**---\n-**---\n------\n"));
+        prueba.add('i',new SHC::Patron("------\n------\n------\n--**--\n--**--\n------\n"));
+        prueba.add('e',new SHC::Patron("------\n------\n------\n---**-\n---**-\n------\n"));
+        prueba.add('n',new SHC::Patron("------\n--**--\n--*-*-\n---**-\n------\n------\n"));
+        prueba.add('h',new SHC::Patron("------\n------\n-**---\n-*-*--\n--**--\n------\n"));
+        prueba.add('a',new SHC::Patron("------\n------\n--**--\n--*-*-\n---*--\n------\n"));
+        prueba.add('k',new SHC::Patron("------\n-**---\n-*-*--\n-*--*-\n--**--\n------\n"));
+        prueba.add('u',new SHC::Patron("------\n---*--\n--*-*-\n-*--*-\n--**--\n------\n"));
+        prueba.add('l',new SHC::Patron("------\n---*--\n--*-*-\n---**-\n------\n------\n"));
+        prueba.add('b',new SHC::Patron("------\n------\n---*--\n--*-*-\n---**-\n------\n"));
+        setPaleta(prueba);
 
-        // 2 - Leer una línea de la imagen.
-        imagen = new SHC::ImagenASCII("prueba.txt");
-//        std::string linea = imagen->getCaracteres();
-        //std::string linea = "aaabbbc";
-
-        // 3 - Usar la paleta para convertir caracteres ASCII en patrones.
+        // 1 - Comprobar que tenemos todos los elementos necesarios.
+        // if (conversorOK ())
+        // {
+        // 2 - Usar la paleta para convertir caracteres ASCII en patrones.
+        SHC::Patron patronActual;
+        unsigned int anchoPatron = 6;
+        unsigned int altoPatron = 6;
+        unsigned int altoMapa = mapa->numfil();
         std::string linea;
-        int j=1;
-        while (j<=mapa->numfil())
+        unsigned int i = 1;
+        while (i <= altoMapa)
         {
             linea = imagen->readLine();
-            int i=1;
+            int j = 1;
             size_t tamlin = linea.size();
-            while (i <= tamlin)
+            while (j <= tamlin)
             {
-                mapa->setPatron(j*6,i*6,*paleta->get(linea[i-1]));
-                i++;
+                patronActual = *paleta->get(linea[j-1]);
+                // anchoPatron = patronActual.getAncho();
+                // altoPatron = patronActual.getAlto();
+                mapa->setPatron(i*anchoPatron,j*altoPatron,patronActual);
+                j++;
             }
-            j++;
+            i++;
         }
     }
 

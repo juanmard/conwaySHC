@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QColor>
+#include <QTimer>
 #include <QPainter>
 #include "mapa.hpp"
 
@@ -51,7 +52,10 @@ namespace SHC
     private:
         QColor m_masterColor;
         int universeSize;
+        QTimer* timer;
+        int generations;
         SHC::Mapa &mapa;
+
         bool isAlive(int k, int j); // return true if universe[k][j] accept rules
         void resetUniverse();// reset the size of universe
     };

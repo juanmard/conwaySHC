@@ -3,10 +3,6 @@
 
 namespace SHC
 {
-    Mapa::Mapa()
-    {
-    }
-
     Mapa::Mapa(unsigned int numfil, unsigned int numcol):
         MatBin(numfil, numcol)
     {

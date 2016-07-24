@@ -17,7 +17,6 @@ namespace SHC
 
     private:
         std::ifstream inFile;
-        std::string caracteres;
     };
 
 }

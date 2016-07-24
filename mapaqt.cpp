@@ -1,23 +1,23 @@
 #include "mapaqt.hpp"
 #include "conversor.hpp"
+#include <QMessageBox>
 
 namespace SHC
 {
     MapaQt::MapaQt(QWidget *parent) :
       QWidget(parent),
+      timer(new QTimer(this)),
+      generations(-1),
       universeSize(81*6),
       mapa(*new SHC::Mapa(81*6,81*6))
     {
-        mapa[0][0] = SHC::Celda::full;
-        mapa[1][3] = mapa[1][5] = SHC::Celda::full;
-        mapa.setPatron(0,0,*new SHC::Patron());
-        mapa.setPatron(20,20,*new SHC::Patron("*-*-*-\n-*-*-*\n*-*-*-\n-*-*-*\n*-*-*-\n-*-*-*\n"));
-        //mapa[universeSize-1][universeSize-1] = SHC::Celda::full;
+        timer->setInterval(300);
+        m_masterColor = "#000";
+        connect(timer, SIGNAL(timeout()), this, SLOT(newGeneration()));
 
         SHC::Conversor conversor;
         conversor.setMapa(mapa);
         conversor.convertir();
-
     }
 
     void MapaQt::paintEvent (QPaintEvent *)
@@ -33,8 +33,10 @@ namespace SHC
         altomap = mapa.numfil();
         double cellWidth = (double)width()/anchomap;
         double cellHeight = (double)height()/altomap;
-        for(int k=1; k <= anchomap; k++) {
-            for(int j=1; j <= altomap; j++) {
+        for(unsigned int k=1; k <= anchomap; k++)
+        {
+            for(unsigned int j=1; j <= altomap; j++)
+            {
                 if(mapa[j-1][k-1] == SHC::Celda::full)
                 { // if there is any sense to paint it
                     qreal left = (qreal)(cellWidth*j-cellWidth); // margin from left
@@ -46,9 +48,16 @@ namespace SHC
         }
     }
 
-    void MapaQt::startGame(const int &number){}
+    void MapaQt::startGame(const int &number)
+    {
+        generations = number;
+        timer->start();
+    }
 
-    void MapaQt::stopGame() {}
+    void MapaQt::stopGame()
+    {
+        timer->stop();
+    }
 
     void MapaQt::clear() {}
 
@@ -62,13 +71,85 @@ namespace SHC
 
     void MapaQt::setDump(const QString &data){}
 
-    int MapaQt::interval(){return 0;}
+    int MapaQt::interval()
+    {
+        return timer->interval();
+    }
 
-    void MapaQt::setInterval(int msec){}
+    void MapaQt::setInterval(int msec)
+    {
+        timer->setInterval(msec);
+    }
 
-    bool MapaQt::isAlive(int k, int j){return true;}
+    bool MapaQt::isAlive (int k, int j)
+    {
+        int power = 0;
+        power += mapa[j+1][k].valorada();
+        power += mapa[j-1][k].valorada();
+        power += mapa[j][k+1].valorada();
+        power += mapa[j][k-1].valorada();
+        power += mapa[j+1][k-1].valorada();
+        power += mapa[j-1][k+1].valorada();
+        power += mapa[j-1][k-1].valorada();
+        power += mapa[j+1][k+1].valorada();
 
-    void MapaQt::newGeneration(){}
+        if (((mapa[j][k].valorada()==1) && (power == 2)) || (power == 3))
+        {
+               return true;
+        }
+        return false;
+    }
+
+    void MapaQt::newGeneration()
+    {
+        if(generations < 0)
+        {
+            generations++;
+        }
+
+        int altoMapa = mapa.numfil()-1;
+        int anchoMapa = mapa.numcol()-1;
+        for(int k=1; k < altoMapa; k++)
+        {
+            for(int j=1; j < anchoMapa; j++)
+            {
+                if (isAlive(k,j))
+                {
+                    mapa[j][k] = SHC::Celda::next_full;
+                }
+                else
+                {
+                    mapa[j][k] = SHC::Celda::next_empty;
+                }
+            }
+        }
+
+        // Se actualiza el estado del universo.
+        for(int k=0; k < altoMapa; k++)
+        {
+            for(int j=0; j < anchoMapa; j++)
+            {
+                mapa[j][k].update();
+            }
+        }
+
+        // Se actualiza el widget.
+        update();
+
+        // Se calculan las generaciones.
+        generations--;
+        if(generations == 0)
+        {
+            stopGame();
+            gameEnds(true);
+            QMessageBox::information(this,
+                                     tr("Game finished."),
+                                     tr("Iterations finished."),
+                                     QMessageBox::Ok,
+                                     QMessageBox::Cancel);
+        }
+
+    }
 
     void MapaQt::mousePressEvent(QMouseEvent *e){}
 
