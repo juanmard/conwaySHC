@@ -4,14 +4,8 @@ namespace SHC
 {
     Conversor::Conversor()
     {
-        // Se lee una imagen de prueba del disco.
-        setImagenASCII(*new SHC::ImagenASCII("prueba.txt"));
-    }
-
-    void Conversor::convertir()
-    {
         // Se incia la paleta con patrones asociados a las letras del club.
-        SHC::Paleta prueba;
+        SHC::Paleta &prueba = *new SHC::Paleta();
         prueba.add(' ',new SHC::Patron("------\n------\n------\n------\n------\n------\n"));
         prueba.add('S',new SHC::Patron("------\n--**--\n-*--*-\n--**--\n------\n------\n"));
         prueba.add('C',new SHC::Patron("------\n------\n--**--\n-*--*-\n--**--\n------\n"));
@@ -37,8 +31,14 @@ namespace SHC
         prueba.add('b',new SHC::Patron("------\n------\n---*--\n--*-*-\n---**-\n------\n"));
         setPaleta(prueba);
 
+        // Se lee una imagen de prueba del disco.
+        setImagenASCII(*new SHC::ImagenASCII("prueba.txt"));
+    }
+
+    void Conversor::convertir()
+    {
         // 1 - Comprobar que tenemos todos los elementos necesarios.
-        // if (conversorOK ())
+        // if (conversor.OK())
         // {
         // 2 - Usar la paleta para convertir caracteres ASCII en patrones.
         SHC::Patron patronActual;

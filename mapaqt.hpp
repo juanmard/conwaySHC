@@ -55,6 +55,11 @@ namespace SHC
         QTimer* timer;
         int generations;
         SHC::Mapa &mapa;
+        unsigned int xZoom;
+        unsigned int yZoom;
+        unsigned int anchoZoom;
+        unsigned int altoZoom;
+
 
         bool isAlive(int k, int j); // return true if universe[k][j] accept rules
         void resetUniverse();// reset the size of universe

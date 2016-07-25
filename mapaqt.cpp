@@ -9,7 +9,11 @@ namespace SHC
       timer(new QTimer(this)),
       generations(-1),
       universeSize(81*6),
-      mapa(*new SHC::Mapa(81*6,81*6))
+      mapa(*new SHC::Mapa(81*6,81*6)),
+      xZoom(100),
+      yZoom(100),
+      anchoZoom (300),
+      altoZoom (300)
     {
         timer->setInterval(300);
         m_masterColor = "#000";
@@ -28,17 +32,17 @@ namespace SHC
 
     void MapaQt::paintMap (QPainter &p)
     {
-        unsigned int anchomap, altomap;
-        anchomap = mapa.numcol();
-        altomap = mapa.numfil();
-        double cellWidth = (double)width()/anchomap;
-        double cellHeight = (double)height()/altomap;
-        for(unsigned int k=1; k <= anchomap; k++)
+        //unsigned int anchomap, altomap;
+        //anchomap = mapa.numcol()-posx;//*50/100;
+        //altomap = mapa.numfil()-posy;//*50/100;
+        double cellWidth = (double)width()/anchoZoom;
+        double cellHeight = (double)height()/altoZoom;
+        for(unsigned int k=1; k <= anchoZoom; k++)
         {
-            for(unsigned int j=1; j <= altomap; j++)
+            for(unsigned int j=1; j <= altoZoom; j++)
             {
-                if(mapa[j-1][k-1] == SHC::Celda::full)
-                { // if there is any sense to paint it
+                if(mapa[j-1+yZoom][k-1+xZoom] == SHC::Celda::full)
+                {
                     qreal left = (qreal)(cellWidth*j-cellWidth); // margin from left
                     qreal top  = (qreal)(cellHeight*k-cellHeight); // margin from top
                     QRectF r(left, top, (qreal)cellWidth, (qreal)cellHeight);
